@@ -232,28 +232,42 @@ sr.reveal(`.footer, footer__container`, {
   distance: "30px",
 });
 
-emailjs.init('xtWOnia5CURbUaIHD');
+// Include the EmailJS SDK
+(function(){
+  emailjs.init("xtWOnia5CURbUaIHD");
+})();
 
 document.getElementById('contact-form').addEventListener('submit', function(event) {
-  event.preventDefault(); // Prevent the default form submission
-  
-  // Capture form data
+  event.preventDefault();
+
+  const submitButton = document.getElementById('submit-button');
+  submitButton.innerText = 'Sending...';
+
+  // Get the form values
   const name = document.getElementById('name').value;
   const email = document.getElementById('email').value;
   const message = document.getElementById('message').value;
 
-  // Send email using EmailJS
-  emailjs.send('service_gneqwjp', 'template_3xd7kgp', {
+  // Set up the parameters to send to EmailJS
+  const templateParams = {
       name: name,
       email: email,
-      message: message
-  })
-  .then(function(response) {
-      console.log('SUCCESS!', response.status, response.text);
-      alert('Message sent successfully!');
-  }, function(error) {
-      console.log('FAILED...', error);
-      alert('Failed to send the message. Please try again.');
-  });
+      message: message,
+  };
+
+  // Send the email using EmailJS
+  emailjs.send('service_gneqwjp', 'template_3xd7kgp', templateParams)
+      .then(function(response) {
+          console.log('SUCCESS!', response.status, response.text);
+          submitButton.innerText = 'Message Sent!';
+          alert('Your message has been sent successfully!');
+      }, function(error) {
+          console.log('FAILED...', error);
+          submitButton.innerText = 'Send Message';
+          alert('Failed to send message. Please try again later.');
+      });
+
+  // Clear the form
+  document.getElementById('contact-form').reset();
 });
 
