@@ -4,7 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script type="text/javascript">
+    (function(){
+        emailjs.init("xtWOnia5CURbUaIHD");
+    })();
+</script>
 
 
     <!--=============== BOXICONS ===============-->
@@ -632,7 +637,7 @@
         
                 <div class="contact__content">
                     <h3 class="contact__title contact__title-form">Write Me your Message</h3>
-                    <form id="contact-form" class="contact__form">
+                    <form id="contact-form" class="contact__form"  onsubmit="Sendmail(event)">
                         <div class="contact__form-div">
                             <label for="name" class="contact__form-tag">Name</label>
                             <input type="text" id="name" placeholder="Enter name" class="contact__form-input" required>
@@ -648,12 +653,12 @@
                             <textarea id="message" cols="30" rows="10" placeholder="Write your Message" class="contact__form-input" required></textarea>
                         </div>
         
-                        <button type="submit" class="button" id="submit-button">Send Message</button>
+                        <button type="submit" class="button">Send Message</button>
                     </form>
                 </div>
             </div>
         </section>
-        
+        <div id="notification" class="notification"></div>
     </main>
 
     <!--=============== FOOTER ===============-->

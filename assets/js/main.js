@@ -232,42 +232,41 @@ sr.reveal(`.footer, footer__container`, {
   distance: "30px",
 });
 
+function showNotification(message, type) {
+  const notification = document.getElementById("notification");
+  notification.textContent = message;
+
+  // Add appropriate class based on type
+  notification.classList.remove("success", "error");
+  notification.classList.add(type);
+  
+  // Show the notification
+  notification.classList.add("show");
+
+  // Hide after 3 seconds
+  setTimeout(() => {
+      notification.classList.remove("show");
+      setTimeout(() => notification.style.display = 'none', 300); // Add delay for fade-out
+  }, 3000);
+}
+
+
 // Include the EmailJS SDK
-(function(){
-  emailjs.init("xtWOnia5CURbUaIHD");
-})();
+function Sendmail(event) {
+  event.preventDefault(); // Prevent form submission
 
-document.getElementById('contact-form').addEventListener('submit', function(event) {
-  event.preventDefault();
-
-  const submitButton = document.getElementById('submit-button');
-  submitButton.innerText = 'Sending...';
-
-  // Get the form values
-  const name = document.getElementById('name').value;
-  const email = document.getElementById('email').value;
-  const message = document.getElementById('message').value;
-
-  // Set up the parameters to send to EmailJS
-  const templateParams = {
-      name: name,
-      email: email,
-      message: message,
+  var params = {
+      name: document.getElementById("name").value,
+      email: document.getElementById("email").value,
+      message: document.getElementById("message").value,
   };
 
-  // Send the email using EmailJS
-  emailjs.send('service_gneqwjp', 'template_3xd7kgp', templateParams)
-      .then(function(response) {
-          console.log('SUCCESS!', response.status, response.text);
-          submitButton.innerText = 'Message Sent!';
-          alert('Your message has been sent successfully!');
+  emailjs.send("service_py5mxj3", "template_3xd7kgp", params)
+      .then(function(res) {
+          showNotification("Sent Successfully", "success");
+          document.getElementById("contact-form").reset();
       }, function(error) {
-          console.log('FAILED...', error);
-          submitButton.innerText = 'Send Message';
-          alert('Failed to send message. Please try again later.');
+          showNotification("Not Sent", "error");
+          console.log("Failed to send message. Error: ", error);
       });
-
-  // Clear the form
-  document.getElementById('contact-form').reset();
-});
-
+}
