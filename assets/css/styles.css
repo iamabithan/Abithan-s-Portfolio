@@ -1243,9 +1243,9 @@ body.light-theme {
 }
 
 .notification.success {
-  background-color: green;
+  background-color: rgb(85, 255, 85);
 }
 
 .notification.error {
-  background-color: red;
+  background-color: rgb(241, 74, 74);
 }
