@@ -261,7 +261,7 @@ function Sendmail(event) {
       message: document.getElementById("message").value,
   };
 
-  emailjs.send("service_py5mxj3", "template_3xd7kgp", params)
+  emailjs.send("service_pr8m14s", "template_3xd7kgp", params)
       .then(function(res) {
           showNotification("Sent Successfully", "success");
           document.getElementById("contact-form").reset();
